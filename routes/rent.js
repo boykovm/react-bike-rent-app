@@ -13,7 +13,7 @@ router.post('/:id', async (req, res) => {
 
     // bikes.push({rentStarted: ,...bike})
     const date = new Date()
-    console.log(bike)
+    // console.log(bike)
     bikes.push({
         _id: bike._id,
         name: bike.name,

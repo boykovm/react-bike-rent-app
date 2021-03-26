@@ -6,25 +6,29 @@ const User = require('../models/user')
 const router = Router()
 
 router.post('/:id', async (req, res) => {
-    const bikeId = req.body.id
-    // console.log(bikeId)
+    if (req.params.id) {
+        const bikeId = req.body.id
+        // console.log(bikeId)
 
-    const user = await User.findById(req.params.id)
-    // console.log(user)
+        const user = await User.findById(req.params.id)
+        // console.log(user)
 
-    const bikes = user.rentedBikes.map(el => el)
-    // console.log(bikes.length)
-    const rentedBikes = bikes.filter(el => el._id != bikeId)
+        const bikes = user.rentedBikes.map(el => el)
+        // console.log(bikes.length)
+        const rentedBikes = bikes.filter(el => el._id != bikeId)
 
-    // console.log(rentedBikes.length)
-    try {
-        await Bike.findByIdAndUpdate(req.body.id, {available: true})
-        await User.findByIdAndUpdate(req.params.id, {rentedBikes: rentedBikes})
+        // console.log(rentedBikes.length)
+        try {
+            await Bike.findByIdAndUpdate(req.body.id, {available: true})
+            await User.findByIdAndUpdate(req.params.id, {rentedBikes: rentedBikes})
 
-        res.send('success')
+            res.send('success')
 
-    } catch (e) {
-        console.log(e)
+        } catch (e) {
+            console.log(e)
+        }
+    } else {
+        res.send('Invalid userId')
     }
 
 

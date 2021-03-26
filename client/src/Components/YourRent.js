@@ -34,6 +34,8 @@ class YourRent extends Component{
             // console.log(dif)
             if (dif >= 72000000) {
                 total += +(bike.price / 2).toFixed(2)
+            } else {
+                total += bike.price
             }
         })
         return total

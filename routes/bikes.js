@@ -18,7 +18,7 @@ router.post('/available', async(req, res) => {
         ...req.body
     })
 
-    console.log(bike)
+    // console.log(bike)
 
     try {
         await bike.save()
@@ -29,16 +29,24 @@ router.post('/available', async(req, res) => {
 });
 
 router.get('/rent/:id', async(req, res) => {
-    const user = await User.findById(req.params.id)
-    res.send(user.rentedBikes)
+    if (req.params.id) {
+        const user = await User.findById(req.params.id)
+        res.send(user.rentedBikes)
+    } else {
+        res.send('Invalid userId')
+    }
 })
 router.post('/rent/:id', async (req, res) => {
-    const user = await User.findById(req.params.id)
-    const bikes = user.rentedBikes
+    if (req.params.id) {
+        const user = await User.findById(req.params.id)
+        const bikes = user.rentedBikes
 
-    console.log(bikes)
+        // console.log(bikes)
 
-    res.send('rent')
+        res.send('Success')
+    } else {
+        res.send('Not valid userId')
+    }
 })
 
 module.exports = router;
